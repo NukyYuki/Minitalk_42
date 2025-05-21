@@ -2,8 +2,10 @@
 # define MINITALK_H
 
 #include <signal.h>
-#include "printfbody/ft_printf.h"
+#include <stdio.h>
+#include "libft/libft.h"
+#include <stdlib.h>
 
-void	Signal(int, void *, bool)
+//void	Signal(int, void *, bool);
 
 #endif

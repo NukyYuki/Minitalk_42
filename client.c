@@ -6,7 +6,7 @@
 /*   By: mipinhei <mipinhei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 13:35:48 by mipinhei          #+#    #+#             */
-/*   Updated: 2025/05/22 15:22:04 by mipinhei         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:55:58 by mipinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ascii_to_bin(int pid, char c)
 				exit(1);
 			}
 		}
-		usleep(50);
+		usleep(200);
 		bit++;
 	}
 }
@@ -49,12 +49,12 @@ int	main(int ac, char **av)
 	if (ac == 3)
 	{
 		server_pid = ft_atoi(av[1]);
-		if (server_pid == 0)
+		if (server_pid <= 0)
 		{
 			ft_printf("Server PID INVALID");
 			return (1);
 		}
-		while (i < ft_strlen(av[2]))
+		while (i <= ft_strlen(av[2]))
 		{
 			ascii_to_bin(server_pid, av[2][i]);
 			i++;

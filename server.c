@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mipinhei <mipinhei@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 15:08:50 by mipinhei          #+#    #+#             */
+/*   Updated: 2025/05/22 15:25:49 by mipinhei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
 void	signal_handler(int signum)
@@ -21,7 +33,7 @@ char	*str_char_join(char const *str1, char c)
 		len = ft_strlen(str1);
 	else
 		len = 0;
-	join = malloc(sizeof(char) * (size + 2));
+	join = malloc(sizeof(char) * (len + 2));
 	if (!join)
 	{
 		free(join);
@@ -38,15 +50,15 @@ char	*str_char_join(char const *str1, char c)
 	return (join);
 }
 
-void	Bin_to_Ascii(int sigsent)
+void	bin_to_ascii(int sigsent)
 {
 	static int	bit;
 	static int	i;
 	static char	*stash;
-	char		temp;
+	char		*temp;
 
 	if (!stash)
-		stash = ft_calloc(1,1);
+		stash = ft_calloc(1, 1);
 	i++;
 	if (sigsent == SIGUSR1)
 		i |= (0x01 << bit);
@@ -54,9 +66,9 @@ void	Bin_to_Ascii(int sigsent)
 	if (bit == 8)
 	{
 		temp = str_char_join(stash, (char)i);
-		free(str);
-		str = temp;
-		if (i = 0)
+		free(stash);
+		stash = temp;
+		if (i == 0)
 		{
 			ft_printf("%s\n", stash);
 			free(stash);
@@ -72,20 +84,19 @@ int	main(int ac, char **av)
 	(void)av;
 	if (ac != 1)
 	{
-		ft_printf("ERROR -> too many args")
+		ft_printf("ERROR -> too many args");
 		return (1);
 	}
 	ft_printf("Server PID=%d\n", getpid());
-
 	signal(SIGINT, signal_handler);
 	signal(SIGTSTP, signal_handler);
 	signal(SIGTERM, signal_handler);
-	signal
-
+	signal(SIGUSR1, bin_to_ascii);
+	signal(SIGUSR2, bin_to_ascii);
 	while (1)
 	{
-		signal(SIGUSR1, Bin_to_Ascii);
-		signal(SIGUSR2, Bin_to_Ascii);
+//		signal(SIGUSR1, bin_to_ascii);
+//		signal(SIGUSR2, bin_to_ascii);
 		pause();
 	}
 	return (0);

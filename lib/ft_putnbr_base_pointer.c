@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putnbr_base_pointer.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipinhei <mipinhei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 15:08:15 by mipinhei          #+#    #+#             */
-/*   Updated: 2025/06/25 10:57:26 by mipinhei         ###   ########.fr       */
+/*   Created: 2025/04/23 18:49:48 by mipinhei          #+#    #+#             */
+/*   Updated: 2025/05/21 16:16:21 by mipinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include "lib/libft.h"
-# include <stdlib.h>
+int	ft_putnbr_pt(unsigned long nb, char *base)
+{
+	int		count;
 
-#endif
+	count = 0;
+	if (nb > ((unsigned long)ft_strlen(base) - 1))
+		count += ft_putnbr_pt(nb / (ft_strlen(base)), base);
+	count += ft_putchar(base[nb % (ft_strlen(base))]);
+	return (count);
+}

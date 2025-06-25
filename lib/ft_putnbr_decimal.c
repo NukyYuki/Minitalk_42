@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putnbr_decimal.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mipinhei <mipinhei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/22 15:08:15 by mipinhei          #+#    #+#             */
-/*   Updated: 2025/06/25 10:57:26 by mipinhei         ###   ########.fr       */
+/*   Created: 2025/04/24 12:48:43 by mipinhei          #+#    #+#             */
+/*   Updated: 2025/05/21 16:17:46 by mipinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include "lib/libft.h"
-# include <stdlib.h>
+int	ft_putnbr_decimal(long nb)
+{
+	int	count;
 
-#endif
+	count = 0;
+	if (nb < 0)
+	{
+		nb = -nb;
+		count += ft_putchar('-');
+	}
+	if (nb > 9)
+	{
+		count += ft_putnbr_decimal(nb / 10);
+		count += ft_putnbr_decimal(nb % 10);
+	}
+	else
+		count += ft_putchar(nb + '0');
+	return (count);
+}
